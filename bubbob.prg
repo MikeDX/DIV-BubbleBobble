@@ -1433,7 +1433,7 @@ mod1, mod2;
 multi_score[6] =
 1000, 2000, 4000, 8000, 16000, 32000, 64000;
 
-//for popping trap bubbles and walking into enermies with a heart
+//for popping trap bubbles and walking into enemies with a heart
 food_pop[7]=
 500,1000,2000,3000,4000,5000,6000,7000;
 
@@ -1651,7 +1651,7 @@ STRUCT userdefkeys[1]
     pl_f;         //fire
     pl_j;         //jump
 END =
-_left, _right, _alt, _control,
+_left, _right, _z, _x,
 _a, _s, _n, _m;
 
 //Default Keys used to control the players in the game
@@ -1661,7 +1661,7 @@ STRUCT Restore_userdefkeys[1]
     pl_f;         //fire
     pl_j;         //jump
 END =
-_left, _right, _alt, _control,
+_left, _right, _z, _x,
 _a, _s, _n, _m;
 
 
@@ -1994,7 +1994,7 @@ STRUCT Game_Text[50]
    txt_linefeed; //do a linefeed, this set to true it will do the next text in this array
 END =
 4,6,f_red,     "BASIC SKILL . . .", TRUE,             // 0
-3,8,f_silver,  "TRAP ENERMIES INSIDE",TRUE,           // 1
+3,8,f_silver,  "TRAP ENEMIES INSIDE",TRUE,           // 1
 3,10,f_silver, "BUBBLES.", FALSE,                     // 2
 
 3,8,f_silver, "BURST BUBBLES WITH YOUR", TRUE,        // 3
@@ -2010,10 +2010,10 @@ END =
 4,6,f_blue,    "SPECIAL ITEMS . . .", TRUE,           //10
 3,8,f_silver,  "COLLECT ITEMS FOR DINO", TRUE,        //11
 3,10,f_silver, "POWER-UPS/HELP OR FOR KILLING", TRUE, //12
-3,12,f_silver, "ALL THE ENERMIES ON SCREEN!", FALSE,  //13
+3,12,f_silver, "ALL THE ENEMIES ON SCREEN!", FALSE,  //13
 
 3,8,f_silver,  "ONE STAGE IS CLEARED WHEN ALL", TRUE, //14
-3,10,f_silver, "ENERMIES ARE DESTROYED", FALSE,
+3,10,f_silver, "ENEMIES ARE DESTROYED", FALSE,
 
 14,5,f_silver,  "PUSH", TRUE,            //16
 7,7,f_silver,  "1  PLAYER  BUTTON  ONLY", FALSE,   //17
@@ -3005,7 +3005,7 @@ BEGIN
 
     Hi_score = 50000; //Display Hiscore will be updated in level_events process
 
-    level_max[0] = 1;
+    level_max[0] = 32;
     level_max[1] = 1;
 END
 
@@ -4510,6 +4510,10 @@ LOOP //Loop back to here so user can do the other keys and quit the program
          IF (keys_changed == TRUE) //will prompt the user if they wish to save these keys to use again
             Write(font_g,ret_xtext(0),ret_ytext(16),3,"YOUR PLAYER KEYS HAVE BEEN CHANGED");
             Write(font_g,ret_xtext(0),ret_ytext(17),3,"SAVE TO DISC Y/N  ?");
+            REPEAT
+                FRAME;
+            UNTIL (scan_code == 0);
+
             LOOP
                 IF (scan_code !=0)
                    IF (scan_code == _Y)
