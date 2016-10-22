@@ -3727,6 +3727,9 @@ BEGIN
 
    song_pos = 0;
 
+   Clr_collected(0); // Clear extended letters
+   Clr_collected(1);
+
 END
 
 PROCESS Game_loop()
@@ -3802,9 +3805,10 @@ REPEAT //GAME LOOP
 
   FRAME;
 
-UNTIL (players_on_screen <=0) //only quit if level is go and not advancing etc
+UNTIL (players_on_screen <=0 && !(credits >0 && key(_1))) //only quit if level is go and not advancing etc
 //END OF GAME LOOP
-   Game_End_Reset();
+        Game_End_Reset();
+
 
 END
 
